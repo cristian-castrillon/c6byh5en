@@ -1,23 +1,34 @@
 class Api::V1::ProductsController < ApplicationController
+  # respond_to :json
+
   def index
     @products = Product.all
     render json: @products
   end
 
   def new
-    @product = Product.new
+    # @product = Product.new
   end
 
   def create
-    @product = Product.create(product_params)
+    @product = Product.new(product_params)
+    respond_to do |format|
+       format.json do
+           if @product.save
+              render json: @product, status: :created, location: @product
+           else
+              render json: @product.errors, status: :unprocessable_entity
+           end
+       end
+     end
   end
 
   def edit
-    @product = Product.find(params[:id])
+    # @product = Product.find(params[:id])
   end
 
   def update
-    @product = Product.update(params[:id], product_params)
+    # @product = Product.update(params[:id], product_params)
   end
 
   private
