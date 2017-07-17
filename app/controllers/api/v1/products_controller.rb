@@ -24,7 +24,7 @@ class Api::V1::ProductsController < ApplicationController
     if product.update(product_params)
       render json: product, status: :ok, location: product
     else
-      render json: product.errors, status: :unprocessable_entity
+      render json: { errors: product.errors }, status: :unprocessable_entity
     end
   end
 
