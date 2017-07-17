@@ -13,7 +13,7 @@ class Api::V1::ProductsController < ApplicationController
            if product.save
               render json: product, status: :created, location: product
            else
-              render json: { errors: product.errors }, status: :unprocessable_entity
+              render json: product.errors, status: :unprocessable_entity
            end
        end
      end
